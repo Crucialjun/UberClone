@@ -25,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import java.util.Objects;
+
 import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -47,19 +49,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/Arkhip_font.ttf")
                 .setFontAttrId(R.attr.fontPath).build());
 
         setContentView(R.layout.activity_main);
 
-
+        //Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
+        users = db.getReference("User");
 
+        //Initialize view
         btnSignIn = findViewById(R.id.btn_sign_in);
         btnSignUp = findViewById(R.id.btn_sign_up);
-        users = db.getReference("User");
+
+
         rootLayout = findViewById(R.id.rootLayout);
 
 
@@ -117,7 +124,8 @@ public class MainActivity extends AppCompatActivity {
                 waitingDialog.show();
 
 
-                mAuth.signInWithEmailAndPassword(edtEmail.getText().toString(),edtPassword.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                mAuth.signInWithEmailAndPassword(edtEmail.getText().toString(),edtPassword.getText()
+                        .toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         waitingDialog.dismiss();
@@ -189,7 +197,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                 mAuth.createUserWithEmailAndPassword(edtEmail.getText().toString(),edtPassword
-                        .getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        .getText().toString()).addOnSuccessListener
+                        (new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         User user = new User();
@@ -198,22 +207,27 @@ public class MainActivity extends AppCompatActivity {
                         user.setPhone(edtPhone.getText().toString());
                         user.setPassword(edtPassword.getText().toString());
 
-                        users.child(FirebaseAuth.getInstance().getUid()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        users.child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
+                                .setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Snackbar.make(rootLayout,"Registration Successful",Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(rootLayout,"Registration Successful"
+                                        ,Snackbar.LENGTH_SHORT).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Snackbar.make(rootLayout,"Registration Failed " +e.getMessage(),Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(rootLayout
+                                        , "Registration Failed " +e.getMessage(),Snackbar
+                                                .LENGTH_SHORT).show();
                             }
                         });
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Snackbar.make(rootLayout,"Registration Failed " +e.getMessage(),Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(rootLayout,"Registration Failed " +e.getMessage()
+                                ,Snackbar.LENGTH_SHORT).show();
                     }
                 });
             }

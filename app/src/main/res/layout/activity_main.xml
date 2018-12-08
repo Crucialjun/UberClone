@@ -2,86 +2,96 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:background="@drawable/aerielstreet"
-    android:layout_height="match_parent"
     android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/aerielstreet"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <TextView
-            android:textColor="@android:color/white"
-            android:textAlignment="center"
-            android:text="S W A R A "
-            android:textSize="36sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="S W A R A"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="36sp" />
+
         <TextView
-            android:textColor="@android:color/white"
-            android:layout_marginTop="20dp"
-            android:textAlignment="center"
-            android:text="DELIVERIES"
-            android:textSize="16sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="D E L I V E R I E S"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="36sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="PARTNER"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
 
     </LinearLayout>
+
     <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:scaleType="centerCrop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/happydelivery"
-        android:layout_centerInParent="true"/>
+        android:src="@drawable/happydelivery" />
+
     <TextView
+        android:id="@+id/txt_rider_app"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txt_rider_app"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
-        android:text="LOOKING FOR THE RIDER APP?"
-        android:textSize="12sp"
+        android:layout_marginBottom="20dp"
+        android:text="LOOKING FOR THE CLIENT APP?"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        />
+        android:textSize="12sp" />
+
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
         android:layout_above="@id/txt_rider_app"
         android:layout_margin="16dp"
-        >
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <Button
-            android:textColor="@android:color/white"
-            android:background="@drawable/btn_signin_background"
             android:id="@+id/btn_sign_in"
-            android:text="SIGN IN"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginRight="6dp"
-            android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:background="@drawable/btn_signin_background"
+            android:text="SIGN IN"
+            android:textColor="@android:color/white" />
+
         <Button
-            android:textColor="@android:color/black"
-            android:background="@android:color/white"
             android:id="@+id/btn_sign_up"
-            android:text="SIGN UP"
-            android:layout_marginLeft="6dp"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:background="@android:color/white"
+            android:text="SIGN UP"
+            android:textColor="@android:color/black" />
 
     </LinearLayout>
-
 
 
 </RelativeLayout>
