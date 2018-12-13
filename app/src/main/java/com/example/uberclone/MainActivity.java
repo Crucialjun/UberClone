@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 dialogInterface.dismiss();
 
                 //Set  disable button Sign In if is processing
+                btnSignIn.setEnabled(false);
 
 
                 if(TextUtils.isEmpty(edtEmail.getText().toString())){
