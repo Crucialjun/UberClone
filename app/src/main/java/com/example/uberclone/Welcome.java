@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
@@ -33,10 +34,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.List;
 
 public class Welcome extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
@@ -64,26 +69,19 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback,
     MaterialAnimatedSwitch location_switch;
     private SupportMapFragment mMapFragment;
 
+    //Car animation
+    private List<LatLng> polyLineList;
+    private Marker pickUpLocationMarker;
+    private float v;
+    private double lat,lng;
+    private Handler handler;
+    private LatLng startPosition,endPosition,currentPosition;
+    private int index,next;
+    private EditText edtPlace;
+    private String destination;
+    private PolylineOptions mPolylineOptions,blackPolyLineOptions;
+    private Polyline blackPolyline,GreyPolyline;
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-       switch (requestCode)
-       {
-           case MY_PERMISSION_REQUEST_CODE:
-               if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-               {
-                   if(checkPlayServices())
-                   {
-                       buildGoogleApiClient();
-                       createLocationRequest();
-                       if(location_switch.isChecked())
-                       {
-                           displayLocation();
-                       }
-                   }
-               }
-       }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +92,7 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback,
                 .findFragmentById(R.id.map);
         mMapFragment.getMapAsync(this);
 
+        //Init View
         location_switch = findViewById(R.id.location_switch);
         location_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
             @Override
@@ -110,10 +109,32 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback,
             }
         });
 
+        //GeoFire
         drivers = FirebaseDatabase.getInstance().getReference("Drivers");
         mGeoFire = new GeoFire(drivers);
 
         setUpLocation();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions
+            , @NonNull int[] grantResults) {
+        switch (requestCode)
+        {
+            case MY_PERMISSION_REQUEST_CODE:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    if(checkPlayServices())
+                    {
+                        buildGoogleApiClient();
+                        createLocationRequest();
+                        if(location_switch.isChecked())
+                        {
+                            displayLocation();
+                        }
+                    }
+                }
+        }
     }
 
     private void setUpLocation() {
@@ -202,6 +223,7 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback,
                 final double latitude = mLastLocation.getLatitude();
                 final double longitude = mLastLocation.getLongitude();
 
+                //Update to firebase
                 mGeoFire.setLocation(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                         new GeoLocation(latitude, longitude), new GeoFire.CompletionListener() {
                             @Override
@@ -209,12 +231,13 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback,
                                 // Add Marker
                                 if(mCurrent != null)
                                     mCurrent.remove(); //Remove already Marker
-                                mCurrent = mMap.addMarker(new MarkerOptions().
-                                        icon(BitmapDescriptorFactory.fromResource(R.drawable.bike)).
-                                        position(new LatLng(latitude,longitude)).title("You"));
+                                mCurrent = mMap.addMarker(new MarkerOptions()
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.bike))
+                                        .position(new LatLng(latitude,longitude)).title("You"));
 
                                 //Move Camera
-                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude,longitude),15.0f));
+                                mMap.animateCamera(CameraUpdateFactory
+                                        .newLatLngZoom(new LatLng(latitude,longitude),15.0f));
 
                                 //Animate marker
                                 rotateMarker(mCurrent,-360,mMap);
@@ -259,7 +282,8 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback,
             return;
         }
 
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,mLocationRequest, this);
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,mLocationRequest,
+                this);
     }
 
 

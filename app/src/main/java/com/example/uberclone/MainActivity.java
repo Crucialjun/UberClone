@@ -140,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         waitingDialog.dismiss();
-                        Snackbar.make(rootLayout,"Sign in Failed" + e.getMessage(),Snackbar.LENGTH_SHORT).show();
-
+                        Snackbar.make(rootLayout,"Sign in Failed" + e.getMessage(),Snackbar
+                                .LENGTH_SHORT).show();
 
                         //Activate Button
                         btnSignIn.setEnabled(true);
