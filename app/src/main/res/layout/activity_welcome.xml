@@ -13,9 +13,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <EditText
+            android:layout_weight="5"
+            android:layout_margin="10dp"
+            android:hint="Enter PickUp Location"
+            android:id="@+id/edtPlace"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnGo"
+            android:text="GO"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
     <fragment
+        android:layout_below="@id/layout_panel"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"

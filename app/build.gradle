@@ -20,6 +20,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
     implementation 'com.github.glomadrian:MaterialAnimatedSwitch:1.1@aar'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.github.d-max:spots-dialog:0.7@aar'
