@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -77,10 +78,11 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback,
     private Handler handler;
     private LatLng startPosition,endPosition,currentPosition;
     private int index,next;
+    private Button btn;
     private EditText edtPlace;
     private String destination;
     private PolylineOptions mPolylineOptions,blackPolyLineOptions;
-    private Polyline blackPolyline,GreyPolyline;
+    private Polyline blackPolyline,greyPolyline;
 
 
     @Override
