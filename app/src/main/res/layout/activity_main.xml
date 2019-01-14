@@ -75,9 +75,9 @@
             android:id="@+id/btn_sign_in"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp"
             android:layout_weight="1"
-            android:background="@drawable/btn_signin_background"
+            android:background="@android:color/holo_red_dark"
             android:text="SIGN IN"
             android:textColor="@android:color/white" />
 
