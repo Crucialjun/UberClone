@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-import com.example.uberclone.Model.User;
+import com.example.uberclone.Model.Courier;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         //Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
-        users = db.getReference("User");
+        users = db.getReference("Courier");
 
         //Initialize view
         btnSignIn = findViewById(R.id.btn_sign_in);
@@ -205,15 +205,15 @@ public class MainActivity extends AppCompatActivity {
                         (new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        User user = new User();
-                        user.setEmail(edtEmail.getText().toString());
-                        user.setName(edtName.getText().toString());
-                        user.setPhone(edtPhone.getText().toString());
-                        user.setPassword(edtPassword.getText().toString());
+                        Courier courier = new Courier();
+                        courier.setEmail(edtEmail.getText().toString());
+                        courier.setName(edtName.getText().toString());
+                        courier.setPhone(edtPhone.getText().toString());
+                        courier.setPassword(edtPassword.getText().toString());
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                             users.child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
-                                    .setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    .setValue(courier).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Snackbar.make(rootLayout,"Registration Successful"

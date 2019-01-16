@@ -1,12 +1,12 @@
 package com.example.uberclone.Model;
 
-public class User {
+public class Courier {
     private String email,password,name,phone;
 
-    public User() {
+    public Courier() {
     }
 
-    public User(String email, String password, String name, String phone) {
+    public Courier(String email, String password, String name, String phone) {
         this.email = email;
         this.password = password;
         this.name = name;

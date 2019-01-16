@@ -70,7 +70,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Welcome extends FragmentActivity implements OnMapReadyCallback,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
     //Play Service
@@ -177,6 +178,7 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback,
         mMapFragment.getMapAsync(this);
 
         //Init View
+
 
         location_switch = findViewById(R.id.location_switch);
         location_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
