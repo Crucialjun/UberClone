@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.example.uberclone.Common.Common;
 import com.example.uberclone.Model.Courier;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         //Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
-        users = db.getReference("Courier");
+        users = db.getReference(Common.user_courier_tbl);
 
         //Initialize view
         btnSignIn = findViewById(R.id.btn_sign_in);

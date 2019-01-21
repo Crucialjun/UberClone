@@ -227,7 +227,7 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback,
 
 
         //GeoFire
-        drivers = FirebaseDatabase.getInstance().getReference("Drivers");
+        drivers = FirebaseDatabase.getInstance().getReference(Common.courier_tbl);
         mGeoFire = new GeoFire(drivers);
 
         setUpLocation();
